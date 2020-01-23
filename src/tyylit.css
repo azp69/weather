@@ -1,0 +1,82 @@
+.headeri
+{
+    background-color:#fff;
+    border: 1px solid #e6e6e6;
+    margin:0;
+    padding:20pt;
+}
+
+.headeri > h1
+{
+    font-size: 23pt;
+    color: #262626;
+    margin:0;
+}
+
+.kaupunkidropdown
+{
+    color: #262626;
+    font-size:13pt;
+    padding:13pt;
+    border-radius: 4px;
+    border:0;
+}
+
+.saakorttiIso
+{
+    margin-top:20pt;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+}
+
+.paivamaara
+{
+    margin:0;
+    font-size: 15pt;
+    color: #262626;
+}
+
+.kellonaika
+{
+    margin:0;
+    font-size: 13pt;
+    color: #70757A;
+}
+
+.kaupunkiotsikko
+{
+    font-size: 19pt;
+    color: #262626;
+    margin:0;
+}
+
+.lampotilaIso
+{
+    font-size: 26pt;
+    color: #262626;
+    margin:0;
+}
+
+.saatilateksti
+{
+    font-size: 13pt;
+    color: #70757A;
+}
+
+.saatekstit
+{
+    font-size: 13pt;
+    color: #70757A;
+    margin:0;
+    text-align: right;
+}
+.container
+{
+    margin-top:20pt;
+}
+
+.card
+{
+    border-color: #e6e6e6;
+    background-color: #fff;
+}
