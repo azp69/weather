@@ -25,6 +25,7 @@
 .saakorttiIso
 {
     margin-top:20pt;
+    margin-bottom:20pt;
     border: 1px solid #e6e6e6;
     border-radius: 4px;
 }
@@ -73,6 +74,13 @@
 .container
 {
     margin-top:20pt;
+    
+}
+
+.container-tausta
+{
+    background-color: #f8f9fa;
+    padding-bottom:20pt;
 }
 
 .card
@@ -80,3 +88,34 @@
     border-color: #e6e6e6;
     background-color: #fff;
 }
+
+.tuntiotsikko
+{
+    font-size: 13pt;
+    color: #70757A;
+    margin:0;
+}
+
+.lampotilaTuntiennuste
+{
+    font-size: 15pt;
+    color: #262626;
+    margin-bottom:0;
+}
+
+.saaennusteFooter > p
+{
+    font-size: 10pt;
+    color: #70757A;
+    margin:0;
+}
+
+.saaennusteFooter
+{
+    background-color: #e5f6fd;
+    padding-top:10pt;
+    padding-bottom:10pt;
+}
+
+
+
