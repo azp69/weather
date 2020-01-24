@@ -1,27 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import {apikey} from './apikey';
-import {tampere_response} from './testidata';
 import './tyylit.css';
 
 
 
 function App() {
 
-  
-
-  const kaupunkiIDt = 
-  [
-      {"id" : "634964", "kaupunki" : "tampere"},
-      {"id" : "655195", "kaupunki" : "jyväskylä"},
-      {"id" : "650225", "kaupunki" : "kuopio"},
-      {"id" : "658225", "kaupunki" : "helsinki"}
-  ];
-
   const [valittuKaupunki, asetaKaupunki] = useState(0);
   
   const valikko = (
     <div className="card">
-      <select className="kaupunkidropdown">
+      <select className="kaupunkidropdown" onChange={(e) => asetaKaupunki(e.target.value)}>
         <option value="0">Kaikki kaupungit</option>
         <option value="1">Helsinki</option>
         <option value="2">Jyväskylä</option>
@@ -33,6 +22,7 @@ function App() {
 
   return (
     <div className="container-tausta">
+      {valittuKaupunki}
       <Header />
       <div className="container container-xl">
         <div className="row">
@@ -51,6 +41,7 @@ function App() {
 
 function KoostaSaatiedot(props)
 {
+  console.log("Haloo. Valinta: " + props.valinta);
 
   const [saaDataTampere, asetaDataTampere] = useState(null);
   const [saaDataJyvaskyla, asetaDataJyvaskyla] = useState(null);
@@ -63,7 +54,6 @@ function KoostaSaatiedot(props)
   const helsinkiID = '658225';
 
   let naytto;
-  const id = "634964";
   
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
@@ -135,7 +125,73 @@ function KoostaSaatiedot(props)
 
   switch(props.valinta)
   {
-    case 0:
+    case '1':
+      console.log("Vaihtoehto 1");
+      if (saaDataHelsinki !== null)
+      {
+        naytto = (
+          <>
+            <div className="col-sm-12 col-xl-6">
+              <SaaNyt data={saaDataHelsinki} />
+              <Tuntiennusteet data={saaDataHelsinki} />
+            </div>
+          </>
+        );
+        return naytto;
+      }
+      else
+        return (<p>Loading</p>);
+
+    case '2':
+      if (saaDataJyvaskyla !== null)
+      {
+        naytto = (
+          <>
+            <div className="col-sm-12 col-xl-6">
+              <SaaNyt data={saaDataJyvaskyla} />
+              <Tuntiennusteet data={saaDataJyvaskyla} />
+            </div>
+          </>
+        );
+        return naytto;
+      }
+      else
+        return (<p>Loading</p>);
+
+    case '3':
+      if (saaDataTampere !== null)
+      {
+        naytto = (
+          <>
+            <div className="col-sm-12 col-xl-6">
+              <SaaNyt data={saaDataTampere} />
+              <Tuntiennusteet data={saaDataTampere} />
+            </div>
+          </>
+        );
+        return naytto;
+      }
+      else
+        return (<p>Loading</p>);
+
+    case '4':
+      if (saaDataKuopio !== null)
+      {
+        naytto = (
+          <>
+            <div className="col-sm-12 col-xl-6">
+              <SaaNyt data={saaDataKuopio} />
+              <Tuntiennusteet data={saaDataKuopio} />
+            </div>
+          </>
+        );
+        return naytto;
+      }
+      else
+        return (<p>Loading</p>);
+
+    default:
+
       if (saaDataHelsinki !== null && saaDataJyvaskyla !== null && saaDataKuopio !== null && saaDataTampere !== null)
       {
         naytto = (
@@ -162,76 +218,6 @@ function KoostaSaatiedot(props)
       }
       else
         return (<p>Loading</p>);
-      
-    break;
-
-    case 1:
-      if (saaDataHelsinki !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-sm-12 col-xl-6">
-              <SaaNyt data={saaDataHelsinki} />
-              <Tuntiennusteet data={saaDataHelsinki} />
-            </div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
-    break;
-
-    case 2:
-      if (saaDataJyvaskyla !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-sm-12 col-xl-6">
-              <SaaNyt data={saaDataJyvaskyla} />
-              <Tuntiennusteet data={saaDataJyvaskyla} />
-            </div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
-    break;
-
-    case 3:
-      if (saaDataTampere !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-sm-12 col-xl-6">
-              <SaaNyt data={saaDataTampere} />
-              <Tuntiennusteet data={saaDataTampere} />
-            </div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
-    break;
-
-    case 4:
-      if (saaDataKuopio !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-sm-12 col-xl-6">
-              <SaaNyt data={saaDataKuopio} />
-              <Tuntiennusteet data={saaDataKuopio} />
-            </div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
-    break;
   }
 }
 
