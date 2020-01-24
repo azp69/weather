@@ -10,7 +10,7 @@ function App() {
   
   const valikko = (
     <div className="card">
-      <select className="kaupunkidropdown" onChange={(e) => asetaKaupunki(e.target.value)}>
+      <select className="kaupunkidropdown" value={valittuKaupunki} onChange={(e) => asetaKaupunki(e.target.value)}>
         <option value="0">Kaikki kaupungit</option>
         <option value="1">Helsinki</option>
         <option value="2">Jyväskylä</option>
@@ -18,15 +18,18 @@ function App() {
         <option value="4">Tampere</option>
       </select>
     </div>
-  );
+  )
 
-  return (
-    <div className="container-tausta">
-      {valittuKaupunki}
+  let rakenne;
+
+  if (valittuKaupunki == '0')
+  {
+    rakenne = (
+      <div className="container-tausta">
       <Header />
       <div className="container container-xl">
         <div className="row">
-          <div className="col-sm-12 col-xl-6 ">
+          <div className="col-sm-12 col-xl-12">
             {valikko}
           </div>
         </div>
@@ -35,7 +38,31 @@ function App() {
         </div>
       </div>
     </div>
-  );
+    )
+  }
+
+  else
+  {
+    rakenne = (
+    <div className="container-tausta">
+      <Header />
+      <div className="container container-xl">
+        <div className="row">
+          <div className="col-xl-2"></div>
+          <div className="col-sm-12 col-xl-8">
+            {valikko}
+          </div>
+          <div className="col-xl-2"></div>
+        </div>
+        <div className="row">
+          <KoostaSaatiedot valinta={valittuKaupunki} />
+        </div>
+      </div>
+    </div>
+    )
+  }
+
+  return rakenne;
 }
 
 
@@ -131,10 +158,12 @@ function KoostaSaatiedot(props)
       {
         naytto = (
           <>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-xl-2"></div>
+            <div className="col-sm-12 col-xl-8">
               <SaaNyt data={saaDataHelsinki} />
               <Tuntiennusteet data={saaDataHelsinki} />
             </div>
+            <div className="col-xl-2"></div>
           </>
         );
         return naytto;
@@ -147,10 +176,12 @@ function KoostaSaatiedot(props)
       {
         naytto = (
           <>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-xl-2"></div>
+            <div className="col-sm-12 col-xl-8">
               <SaaNyt data={saaDataJyvaskyla} />
               <Tuntiennusteet data={saaDataJyvaskyla} />
             </div>
+            <div className="col-xl-2"></div>
           </>
         );
         return naytto;
@@ -163,10 +194,12 @@ function KoostaSaatiedot(props)
       {
         naytto = (
           <>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-xl-2"></div>
+            <div className="col-sm-12 col-xl-8">
               <SaaNyt data={saaDataTampere} />
               <Tuntiennusteet data={saaDataTampere} />
             </div>
+            <div className="col-xl-2"></div>
           </>
         );
         return naytto;
@@ -179,10 +212,12 @@ function KoostaSaatiedot(props)
       {
         naytto = (
           <>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-xl-2"></div>
+            <div className="col-sm-12 col-xl-8">
               <SaaNyt data={saaDataKuopio} />
               <Tuntiennusteet data={saaDataKuopio} />
             </div>
+            <div className="col-xl-2"></div>
           </>
         );
         return naytto;
@@ -352,10 +387,9 @@ function Tuntiennusteet(props)
 
 function SaaNyt(props)
 {
-  // console.log(props.data.city.name);
   console.log(props.data);
 
-  const kaupunki = props.data.city.name;
+  const kaupunki = (props.data.city.name == 'Jyvaeskylae') ? 'Jyväskylä' : props.data.city.name;
   const saatilaTxt = props.data.list[0].weather[0].description;
   const saaikoni = `https://openweathermap.org/img/wn/${props.data.list[0].weather[0].icon}@2x.png`;
   const lampotila = props.data.list[0].main.temp;
