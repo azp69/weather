@@ -68,8 +68,6 @@ function App() {
 
 function KoostaSaatiedot(props)
 {
-  console.log("Haloo. Valinta: " + props.valinta);
-
   const [saaDataTampere, asetaDataTampere] = useState(null);
   const [saaDataJyvaskyla, asetaDataJyvaskyla] = useState(null);
   const [saaDataKuopio, asetaDataKuopio] = useState(null);
@@ -84,7 +82,7 @@ function KoostaSaatiedot(props)
   
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://192.168.1.130/weather.php?id=${tampereID}`;
+    const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -101,7 +99,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://192.168.1.130/weather.php?id=${kuopioID}`;
+    const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -118,7 +116,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://192.168.1.130/weather.php?id=${jyvaskylaID}`;
+    const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -135,7 +133,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://192.168.1.130/weather.php?id=${helsinkiID}`;
+    const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -153,7 +151,6 @@ function KoostaSaatiedot(props)
   switch(props.valinta)
   {
     case '1':
-      console.log("Vaihtoehto 1");
       if (saaDataHelsinki !== null)
       {
         naytto = (
@@ -189,7 +186,7 @@ function KoostaSaatiedot(props)
       else
         return (<p>Loading</p>);
 
-    case '3':
+    case '4':
       if (saaDataTampere !== null)
       {
         naytto = (
@@ -207,7 +204,7 @@ function KoostaSaatiedot(props)
       else
         return (<p>Loading</p>);
 
-    case '4':
+    case '3':
       if (saaDataKuopio !== null)
       {
         naytto = (
@@ -305,89 +302,99 @@ function Tuntiennusteet(props)
   for (var i = 1; i < 6; i++)
   {
     let aika = props.data.list[i].dt_txt;
-    console.log(aika);
     let d = new Date(aika);
     let tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
     let minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
     kellonaika.push(`${tunnit}:${minuutit}`);
   }
   
-  console.log(kellonaika[0]);
   
   return (
-    <div className="card-deck text-center">
-      <div className="card mr-0">
-        <div className="card-body">
-          <p className="tuntiotsikko">{kellonaika[0]}</p>
-          <img src={saaikoni[0]}></img>
-          <p className="lampotilaTuntiennuste">{lampotila[0]}&deg;C</p>
-        </div>
-        <div className="footer saaennusteFooter">
-          <p>{tuuli[0]}m/s</p>
-          <p>{kosteus[0]}%</p>
-          <p>{sademaara[0]}mm</p>
-        </div>
-      </div>
+    <table className="w-100">
+      <tbody>
+        <tr>
+          <td>
+            <div className="card mr-1 px-0">
+              <div className="card-body mr-0 px-1 text-center">
+                <p className="tuntiotsikko text-center">{kellonaika[0]}</p>
+                <img src={saaikoni[0]} ></img>
+                <p className="lampotilaTuntiennuste text-center">{lampotila[0]}&deg;C</p>
+              </div>
+              <div className="footer saaennusteFooter text-center">
+                <p>{tuuli[0]}m/s</p>
+                <p>{kosteus[0]}%</p>
+                <p>{sademaara[0]}mm</p>
+              </div>
+            </div>
+          </td>
 
-      <div className="card mr-0">
-        <div className="card-body">
-          <p className="tuntiotsikko">{kellonaika[1]}</p>
-          <img src={saaikoni[1]}></img>
-          <p className="lampotilaTuntiennuste">{lampotila[1]}&deg;C</p>
-        </div>
-        <div className="footer saaennusteFooter">
-          <p>{tuuli[1]}m/s</p>
-          <p>{kosteus[1]}%</p>
-          <p>{sademaara[1]}mm</p>
-        </div>
-      </div>
+          <td>
+            <div className="card mx-1 px-0">
+              <div className="card-body mr-0 px-1 text-center">
+                <p className="tuntiotsikko text-center">{kellonaika[1]}</p>
+                <img src={saaikoni[1]}></img>
+                <p className="lampotilaTuntiennuste text-center">{lampotila[1]}&deg;C</p>
+              </div>
+              <div className="footer saaennusteFooter text-center">
+                <p>{tuuli[1]}m/s</p>
+                <p>{kosteus[1]}%</p>
+                <p>{sademaara[1]}mm</p>
+              </div>
+            </div>
+          </td>
 
-      <div className="card mr-0">
-        <div className="card-body">
-          <p className="tuntiotsikko">{kellonaika[2]}</p>
-          <img src={saaikoni[2]}></img>
-          <p className="lampotilaTuntiennuste">{lampotila[2]}&deg;C</p>
-        </div>
-        <div className="footer saaennusteFooter">
-          <p>{tuuli[2]}m/s</p>
-          <p>{kosteus[2]}%</p>
-          <p>{sademaara[2]}mm</p>
-        </div>
-      </div>
+          <td>
+            <div className="card mx-1 px-0">
+              <div className="card-body mr-0 px-1 text-center">
+                <p className="tuntiotsikko text-center">{kellonaika[2]}</p>
+                <img src={saaikoni[2]}></img>
+                <p className="lampotilaTuntiennuste text-center">{lampotila[2]}&deg;C</p>
+              </div>
+              <div className="footer saaennusteFooter text-center">
+                <p>{tuuli[2]}m/s</p>
+                <p>{kosteus[2]}%</p>
+                <p>{sademaara[2]}mm</p>
+              </div>
+            </div>
+          </td>
 
-      <div className="card mr-0">
-        <div className="card-body">
-          <p className="tuntiotsikko">{kellonaika[3]}</p>
-          <img src={saaikoni[3]}></img>
-          <p className="lampotilaTuntiennuste">{lampotila[3]}&deg;C</p>
-        </div>
-        <div className="footer saaennusteFooter">
-          <p>{tuuli[3]}m/s</p>
-          <p>{kosteus[3]}%</p>
-          <p>{sademaara[3]}mm</p>
-        </div>
-      </div>
+          <td>
+            <div className="card mx-1 px-0">
+              <div className="card-body px-1 text-center">
+                <p className="tuntiotsikko text-center">{kellonaika[3]}</p>
+                <img src={saaikoni[3]}></img>
+                <p className="lampotilaTuntiennuste text-center">{lampotila[3]}&deg;C</p>
+              </div>
+              <div className="footer saaennusteFooter text-center">
+                <p>{tuuli[3]}m/s</p>
+                <p>{kosteus[3]}%</p>
+                <p>{sademaara[3]}mm</p>
+              </div>
+            </div>
+          </td>
 
-      <div className="card">
-        <div className="card-body">
-          <p className="tuntiotsikko">{kellonaika[4]}</p>
-          <img src={saaikoni[4]}></img>
-          <p className="lampotilaTuntiennuste">{lampotila[4]}&deg;C</p>
-        </div>
-        <div className="footer saaennusteFooter">
-          <p>{tuuli[4]}m/s</p>
-          <p>{kosteus[4]}%</p>
-          <p>{sademaara[4]}mm</p>
-        </div>
-      </div>
-      
-  </div>
+          <td>
+            <div className="card ml-1 px-0">
+              <div className="card-body mr-0 px-1 text-center">
+                <p className="tuntiotsikko text-center">{kellonaika[4]}</p>
+                <img src={saaikoni[4]}></img>
+                <p className="lampotilaTuntiennuste text-center">{lampotila[4]}&deg;C</p>
+              </div>
+              <div className="footer saaennusteFooter text-center">
+                <p>{tuuli[4]}m/s</p>
+                <p>{kosteus[4]}%</p>
+                <p>{sademaara[4]}mm</p>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
 function SaaNyt(props)
 {
-  console.log(props.data);
 
   const kaupunki = (props.data.city.name == 'Jyvaeskylae') ? 'Jyväskylä' : props.data.city.name;
   const saatilaTxt = props.data.list[0].weather[0].description;
