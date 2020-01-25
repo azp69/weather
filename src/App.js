@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {apikey} from './apikey';
 import './tyylit.css';
 
-
-
 function App() {
 
   const [valittuKaupunki, asetaKaupunki] = useState(0);
@@ -81,8 +79,8 @@ function KoostaSaatiedot(props)
   let naytto;
   
   useEffect(() => {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
+    const url = `http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`;
+    // const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -98,8 +96,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
+     const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kuopioID}&units=metric&appid=${apikey}`;
+     // const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -115,8 +113,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
+      const url = `http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`;
+     //  const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -132,8 +130,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
+     const url = `http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`;
+     // const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -271,7 +269,8 @@ function Tuntiennusteet(props)
     props.data.list[5].main.humidity
   ];
 
-  const sademaara = [
+  
+  let sademaara = [
     props.data.list[1].rain, 
     props.data.list[2].rain, 
     props.data.list[3].rain, 
@@ -280,6 +279,26 @@ function Tuntiennusteet(props)
   ];
 
   
+  
+  for (let i = 0; i < 5; i++)
+  {
+    try {
+      console.log(sademaara[i]["3h"]);
+      if (sademaara[i]["3h"] > 0)
+        sademaara[i] = sademaara[i]["3h"];
+      else
+      sademaara[i] = "0";
+    }
+    catch
+    {
+      sademaara[i] = "0";
+    }
+  }
+  
+  // console.log(sademaara[1]);
+
+  console.log(sademaara);
+
   const saaikoni = [
     `https://openweathermap.org/img/wn/${props.data.list[1].weather[0].icon}.png`,
     `https://openweathermap.org/img/wn/${props.data.list[2].weather[0].icon}.png`,
@@ -299,7 +318,7 @@ function Tuntiennusteet(props)
 
   let kellonaika = [];
 
-  for (var i = 1; i < 6; i++)
+  for (let i = 1; i < 6; i++)
   {
     let aika = props.data.list[i].dt_txt;
     let d = new Date(aika);
@@ -412,7 +431,15 @@ function SaaNyt(props)
 
   const tuuli = props.data.list[0].wind.speed;
   const kosteus = props.data.list[0].main.humidity;
-  const sademaara = props.data.list[0].rain;
+  let sademaara = 0;
+  try {
+    sademaara = props.data.list[0].rain["3h"];
+  }
+  catch
+  {
+
+  }
+  
   
   const kuukaudet = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   
