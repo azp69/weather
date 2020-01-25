@@ -84,7 +84,7 @@ function KoostaSaatiedot(props)
   
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://localhost/weather.php?id=${tampereID}`;
+    const url = `http://192.168.1.130/weather.php?id=${tampereID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -101,7 +101,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://localhost/weather.php?id=${kuopioID}`;
+    const url = `http://192.168.1.130/weather.php?id=${kuopioID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -118,7 +118,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://localhost/weather.php?id=${jyvaskylaID}`;
+    const url = `http://192.168.1.130/weather.php?id=${jyvaskylaID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -135,7 +135,7 @@ function KoostaSaatiedot(props)
 
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${id}&units=metric&appid=${apikey}`;
-    const url = `http://localhost/weather.php?id=${helsinkiID}`;
+    const url = `http://192.168.1.130/weather.php?id=${helsinkiID}`;
     
     fetch(url)
       .then(res => res.json())
