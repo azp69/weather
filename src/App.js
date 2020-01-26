@@ -79,8 +79,8 @@ function KoostaSaatiedot(props)
   let naytto;
   
   useEffect(() => {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`;
-    // const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
+    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`;
+    const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -96,8 +96,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-     const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kuopioID}&units=metric&appid=${apikey}`;
-     // const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
+     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kuopioID}&units=metric&appid=${apikey}`;
+      const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -113,8 +113,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-      const url = `http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`;
-     //  const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
+     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`;
+      const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -130,8 +130,8 @@ function KoostaSaatiedot(props)
   }, []);
 
   useEffect(() => {
-     const url = `http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`;
-     // const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
+     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`;
+     const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
     
     fetch(url)
       .then(res => res.json())
@@ -226,19 +226,19 @@ function KoostaSaatiedot(props)
       {
         naytto = (
           <>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-sm-12 col-xl-6 mb-2">
               <SaaNyt data={saaDataHelsinki} />
               <Tuntiennusteet data={saaDataHelsinki} />
             </div>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-sm-12 col-xl-6 mb-2">
               <SaaNyt data={saaDataJyvaskyla} />
               <Tuntiennusteet data={saaDataJyvaskyla} />
             </div>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-sm-12 col-xl-6 mb-2">
               <SaaNyt data={saaDataKuopio} />
               <Tuntiennusteet data={saaDataKuopio} />
             </div>
-            <div className="col-sm-12 col-xl-6">
+            <div className="col-sm-12 col-xl-6 mb-2">
               <SaaNyt data={saaDataTampere} />
               <Tuntiennusteet data={saaDataTampere} />
             </div>
@@ -457,16 +457,17 @@ function SaaNyt(props)
   return (
     <div className="card saakorttiIso">
       <div className="card-body">
-      <table style={{width:'100%'}}>
+      <table className="w-100">
         <tbody>
           <tr>
             <td>
-              <h1 className="kaupunkiotsikko">{kaupunki}</h1>
-              <p className="saatilateksti">{saatilaTxt}</p>
+              <h1 className="kaupunkiotsikko mt-1">{kaupunki}</h1>
+              <p className="saatilateksti mt-1">{saatilaTxt}</p>
             </td>
-            <td className="text-right">
-              <img src={saaikoni}></img>
-              <h1 className="lampotilaIso d-inline-block">{Math.round(lampotila)} &deg;C </h1>
+            <td className="text-right mt-0 pt-0">
+              
+              <h1 className="lampotilaIso float-right" style={{bottom:0}}>{Math.round(lampotila)} &deg;C </h1>
+              <img src={saaikoni} className="float-right"></img>
             </td>
           </tr>
           <tr>
