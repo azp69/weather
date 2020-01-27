@@ -31,7 +31,6 @@ export function Tuntiennusteet(props)
   for (let i = 0; i < 5; i++)
   {
     try {
-      console.log(sademaara[i]["3h"]);
       if (sademaara[i]["3h"] > 0)
         sademaara[i] = sademaara[i]["3h"];
       else
@@ -42,8 +41,6 @@ export function Tuntiennusteet(props)
       sademaara[i] = "0";
     }
   }
-  
-  console.log(sademaara);
 
   const saaikoni = [
     `https://openweathermap.org/img/wn/${props.data.list[1].weather[0].icon}.png`,

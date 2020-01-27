@@ -15,8 +15,6 @@ export function KoostaSaatiedot({valinta})
   const kuopioID = '650225';
   const helsinkiID = '658225';
 
-  let naytto;
-  
   useEffect(() => {
     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`;
     const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
