@@ -1,3 +1,5 @@
+React-frontend säätietojen näyttämiseen Weather APIsta (https://openweathermap.org/api)
+
 Asennusohjeet:
 
 - Suorita 'npm install' projektihakemistossa asentaaksesi tarvittavat moduulit.
@@ -5,7 +7,7 @@ Asennusohjeet:
 - apikey.js tiedoston sisältö:
 
 ####
-const apikey = 'abcdefg123';
+const apikey = 'abcdefg123'; // Oma apikeysi tähän
 export {apikey};
 ####
 
