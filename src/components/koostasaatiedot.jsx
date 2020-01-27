@@ -10,6 +10,7 @@ export function KoostaSaatiedot({valinta})
   const [saaDataKuopio, asetaDataKuopio] = useState(null);
   const [saaDataHelsinki, asetaDataHelsinki] = useState(null);
 
+  // Kaupunkien ID:t apissa
   const tampereID = '634964';
   const jyvaskylaID = '655195';
   const kuopioID = '650225';
@@ -94,7 +95,7 @@ export function KoostaSaatiedot({valinta})
   }
 
 
-  if (valinta > 0)
+  if (valinta > 0) // Näytetään yksittäisen kaupungin sää.
   {
       if (saadata)
       {
@@ -111,10 +112,10 @@ export function KoostaSaatiedot({valinta})
       }
       else
       {
-          return <h2>Loading data</h2>
+          return naytaLatausviesti();
       }
   }
-  else
+  else  // Näytetään kaikkien kaupunkien sää.
   {
       const saadata = [
           { "id" : "1" , "data" : saaDataHelsinki},
@@ -140,7 +141,20 @@ export function KoostaSaatiedot({valinta})
       }
       else
       {
-          return <h2>Loading data</h2>
+        return naytaLatausviesti();
       }
   }
+}
+
+function naytaLatausviesti()
+{
+    return (
+        <>
+            <div className="col-xl-2"></div>
+            <div className="col-sm-12 col-xl-8">
+                <h2>Loading data</h2>
+            </div>
+            <div className="col-xl-2"></div>
+            </>
+    );
 }

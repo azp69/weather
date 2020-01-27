@@ -1,52 +1,32 @@
 import React from 'react';
 
-export function SaaNyt(props)
+export function SaaNyt({data})
 {
+  const kaupunki = (data.city.name == 'Jyvaeskylae') ? 'Jyväskylä' : data.city.name;
+  const saatilaTxt = data.list[0].weather[0].description;
+  const saaikoni = `https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png`;
+  const lampotila = data.list[0].main.temp;
+  const aika = data.list[0].dt_txt;
+  const tuuli = data.list[0].wind.speed;
+  const kosteus = data.list[0].main.humidity;
 
-  const kaupunki = (props.data.city.name == 'Jyvaeskylae') ? 'Jyväskylä' : props.data.city.name;
-  const saatilaTxt = props.data.list[0].weather[0].description;
-  const saaikoni = `https://openweathermap.org/img/wn/${props.data.list[0].weather[0].icon}@2x.png`;
-  const lampotila = props.data.list[0].main.temp;
-  const aika = props.data.list[0].dt_txt;
-  
-  const d = new Date(aika);
-  const tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
-  const minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
-  const kellonaika = `${tunnit}:${minuutit}`;
-  const kuukausi = d.getMonth();
-  
-  let paiva = d.getDate();
 
-  const tuuli = props.data.list[0].wind.speed;
-  const kosteus = props.data.list[0].main.humidity;
+  // Yhdistellään vesisade ja lumisade
   let sademaara = 0;
   
   try {
-    sademaara = props.data.list[0].rain["3h"];
+    sademaara = data.list[0].rain["3h"];
   }
   catch
   {
-
   }
 
   try {
-      sademaara = sademaara + props.data.list[0].snow["3h"];
+      sademaara = sademaara + data.list[0].snow["3h"];
   }
-  catch {
-
+  catch 
+  {
   }
-  
-  const kuukaudet = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-  if (paiva === 0)
-    paiva = paiva + "st";
-  else if (paiva === 1)
-    paiva = paiva + "nd";
-  else if (paiva === 2)
-    paiva = paiva + "rd";
-  else
-    paiva = paiva + "th";
-
 
   return (
     <div className="card saakorttiIso">
@@ -66,8 +46,8 @@ export function SaaNyt(props)
           </tr>
           <tr>
             <td className="align-bottom">
-              <p className="paivamaara">{kuukaudet[kuukausi]} {paiva}</p>
-              <p className="kellonaika">{kellonaika}</p>
+              <p className="paivamaara">{tulostaPaivamaara(aika)}</p>
+              <p className="kellonaika">{tulostaKellonaika(aika)}</p>
             </td>
             <td>
               <p className="saatekstit">Wind: {tuuli} m/s</p>
@@ -80,4 +60,38 @@ export function SaaNyt(props)
       </div>
     </div>
   );
+}
+
+function tulostaPaivamaara(aika)
+{
+  const kuukaudet = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const d = new Date(aika);
+  const tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
+  const minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
+  const kellonaika = `${tunnit}:${minuutit}`;
+  const kuukausi = d.getMonth();
+  
+  let paiva = d.getDate();
+
+  if (paiva === 0)
+    paiva = paiva + "st";
+  else if (paiva === 1)
+    paiva = paiva + "nd";
+  else if (paiva === 2)
+    paiva = paiva + "rd";
+  else
+    paiva = paiva + "th";
+
+  return (`${kuukaudet[kuukausi]} ${paiva}`);
+}
+
+export function tulostaKellonaika(aika)
+{
+  const d = new Date(aika);
+  const tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
+  const minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
+  const kellonaika = `${tunnit}:${minuutit}`;
+
+  return kellonaika;
 }

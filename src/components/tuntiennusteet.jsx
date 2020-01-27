@@ -1,41 +1,43 @@
 import React from 'react';
 import {Tuntiennustekortti} from './tuntiennustekortti';
+import {tulostaKellonaika} from './saanyt';
 
-export function Tuntiennusteet(props)
+export function Tuntiennusteet({data})
 {
   const tuuli = [
-    props.data.list[1].wind.speed, 
-    props.data.list[2].wind.speed, 
-    props.data.list[3].wind.speed, 
-    props.data.list[4].wind.speed, 
-    props.data.list[5].wind.speed
+    data.list[1].wind.speed, 
+    data.list[2].wind.speed, 
+    data.list[3].wind.speed, 
+    data.list[4].wind.speed, 
+    data.list[5].wind.speed
   ];
   
   const kosteus = [
-    props.data.list[1].main.humidity, 
-    props.data.list[2].main.humidity, 
-    props.data.list[3].main.humidity, 
-    props.data.list[4].main.humidity, 
-    props.data.list[5].main.humidity
+    data.list[1].main.humidity, 
+    data.list[2].main.humidity, 
+    data.list[3].main.humidity, 
+    data.list[4].main.humidity, 
+    data.list[5].main.humidity
   ];
 
   
   let vesisade = [
-    props.data.list[1].rain, 
-    props.data.list[2].rain, 
-    props.data.list[3].rain, 
-    props.data.list[4].rain, 
-    props.data.list[5].rain
+    data.list[1].rain, 
+    data.list[2].rain, 
+    data.list[3].rain, 
+    data.list[4].rain, 
+    data.list[5].rain
   ];
 
   let lumisade = [
-    props.data.list[1].snow, 
-    props.data.list[2].snow, 
-    props.data.list[3].snow, 
-    props.data.list[4].snow, 
-    props.data.list[5].snow
+    data.list[1].snow, 
+    data.list[2].snow, 
+    data.list[3].snow, 
+    data.list[4].snow, 
+    data.list[5].snow
   ];
 
+  // Yhdistellään lumi- ja vesisademäärät
   let sademaara = [0, 0, 0, 0, 0];
 
   for (let i = 0; i < 5; i++)
@@ -67,31 +69,28 @@ export function Tuntiennusteet(props)
   }
 
   const saaikoni = [
-    `https://openweathermap.org/img/wn/${props.data.list[1].weather[0].icon}.png`,
-    `https://openweathermap.org/img/wn/${props.data.list[2].weather[0].icon}.png`,
-    `https://openweathermap.org/img/wn/${props.data.list[3].weather[0].icon}.png`,
-    `https://openweathermap.org/img/wn/${props.data.list[4].weather[0].icon}.png`,
-    `https://openweathermap.org/img/wn/${props.data.list[5].weather[0].icon}.png`
+    `https://openweathermap.org/img/wn/${data.list[1].weather[0].icon}.png`,
+    `https://openweathermap.org/img/wn/${data.list[2].weather[0].icon}.png`,
+    `https://openweathermap.org/img/wn/${data.list[3].weather[0].icon}.png`,
+    `https://openweathermap.org/img/wn/${data.list[4].weather[0].icon}.png`,
+    `https://openweathermap.org/img/wn/${data.list[5].weather[0].icon}.png`
   ];
   
 
   const lampotila = [
-    Math.round(props.data.list[1].main.temp),
-    Math.round(props.data.list[2].main.temp),
-    Math.round(props.data.list[3].main.temp),
-    Math.round(props.data.list[4].main.temp),
-    Math.round(props.data.list[5].main.temp)
+    Math.round(data.list[1].main.temp),
+    Math.round(data.list[2].main.temp),
+    Math.round(data.list[3].main.temp),
+    Math.round(data.list[4].main.temp),
+    Math.round(data.list[5].main.temp)
   ];
 
   let kellonaika = [];
 
   for (let i = 1; i < 6; i++)
   {
-    let aika = props.data.list[i].dt_txt;
-    let d = new Date(aika);
-    let tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
-    let minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
-    kellonaika.push(`${tunnit}:${minuutit}`);
+    let aika = data.list[i].dt_txt;
+    kellonaika.push(tulostaKellonaika(aika));
   }
 
   const kortit = [

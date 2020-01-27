@@ -2,6 +2,7 @@ import React from 'react';
 
 export function Tuntiennustekortti({kellonaika, saaikoni, lampotila, tuuli, kosteus, sademaara, eka, vika})
 {
+    // Ensimmäisessä ja viimeisessä kortissa on hieman erilaiset tyylit.
     let tyyli = "card px-0 ";
 
     if (eka)
