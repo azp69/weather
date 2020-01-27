@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import {Kaupunkivalikko} from './components/kaupunkivalikko';
 import {KoostaSaatiedot} from './components/koostasaatiedot';
@@ -9,7 +9,6 @@ import './tyylit.css';
 function App() {
 
   const [valittuKaupunki, asetaKaupunki] = useState(0);
-  
   const handleValikkoUpdate = (valinta) =>
   {
     asetaKaupunki(valinta);

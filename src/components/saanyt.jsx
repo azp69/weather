@@ -41,7 +41,7 @@ export function SaaNyt({data})
             <td className="text-right mt-0 pt-0">
               
               <h1 className="lampotilaIso float-right" style={{bottom:0}}>{Math.round(lampotila)} &deg;C </h1>
-              <img src={saaikoni} className="float-right"></img>
+              <img src={saaikoni} className="float-right" alt={saatilaTxt}></img>
             </td>
           </tr>
           <tr>
@@ -67,11 +67,8 @@ function tulostaPaivamaara(aika)
   const kuukaudet = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   const d = new Date(aika);
-  const tunnit = (d.getHours() < 10) ? `0${d.getHours()}` : d.getHours();
-  const minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
-  const kellonaika = `${tunnit}:${minuutit}`;
   const kuukausi = d.getMonth();
-  
+
   let paiva = d.getDate();
 
   if (paiva === 0)

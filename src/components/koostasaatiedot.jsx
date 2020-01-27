@@ -41,7 +41,11 @@ export function KoostaSaatiedot({valinta})
                 case helsinkiID:
                 asetaDataHelsinki(result);
                 break;
+
+                default:
+                    break;
             }
+            
         },
         
         (error) => {
@@ -65,8 +69,7 @@ export function KoostaSaatiedot({valinta})
         haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`, jyvaskylaID);
         haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`, helsinkiID);
     }
-    
-  }, []);
+  }, [debugMode]);
 
 
   let saadata;
@@ -126,7 +129,7 @@ export function KoostaSaatiedot({valinta})
 
       if (saaDataHelsinki && saaDataJyvaskyla && saaDataTampere && saaDataKuopio)
       {
-        const datat = saadata.map((d, index) => (
+        const datat = saadata.map((d) => (
             <div key={"div" + d.id} className="col-sm-12 col-xl-6 mb-2">
                 <SaaNyt key={"saaNyt" + d.id} data={d.data} />
                 <Tuntiennusteet key={d.id} data={d.data} />
