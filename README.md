@@ -7,7 +7,7 @@ Asennusohjeet:
 - apikey.js tiedoston sisältö:
 
 ####
-const apikey = 'abcdefg123'; // Oma apikeysi tähän
+const apikey = 'abcdefg123'; // Oma apikeysi tähän<br>
 export {apikey};
 ####
 
