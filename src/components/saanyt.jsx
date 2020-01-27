@@ -20,6 +20,7 @@ export function SaaNyt(props)
   const tuuli = props.data.list[0].wind.speed;
   const kosteus = props.data.list[0].main.humidity;
   let sademaara = 0;
+  
   try {
     sademaara = props.data.list[0].rain["3h"];
   }
@@ -27,10 +28,15 @@ export function SaaNyt(props)
   {
 
   }
-  
+
+  try {
+      sademaara = sademaara + props.data.list[0].snow["3h"];
+  }
+  catch {
+
+  }
   
   const kuukaudet = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
 
   if (paiva === 0)
     paiva = paiva + "st";

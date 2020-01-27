@@ -15,11 +15,10 @@ export function KoostaSaatiedot({valinta})
   const kuopioID = '650225';
   const helsinkiID = '658225';
 
+  const debugMode = true; // Debuggausta varten haku omasta apista
+
   function haeSaadata(url, kaupunkiId)
   {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kaupunkiId}&units=metric&appid=${apikey}`;
-    // const url = `https://palikka.org/shitti/weather2.php?id=${kaupunkiId}`;
-    
     fetch(url)
       .then(res => res.json())
       .then(
@@ -51,10 +50,21 @@ export function KoostaSaatiedot({valinta})
   }
 
   useEffect(() => {
-    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${kuopioID}`, kuopioID);
-    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${tampereID}`, tampereID);
-    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${jyvaskylaID}`, jyvaskylaID);
-    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${helsinkiID}`, helsinkiID);
+    if (debugMode)
+    {
+        haeSaadata(`https://palikka.org/shitti/weather2.php?id=${kuopioID}`, kuopioID);
+        haeSaadata(`https://palikka.org/shitti/weather2.php?id=${tampereID}`, tampereID);
+        haeSaadata(`https://palikka.org/shitti/weather2.php?id=${jyvaskylaID}`, jyvaskylaID);
+        haeSaadata(`https://palikka.org/shitti/weather2.php?id=${helsinkiID}`, helsinkiID);
+    }
+    else
+    {
+        haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${kuopioID}&units=metric&appid=${apikey}`, kuopioID);
+        haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`, tampereID);
+        haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`, jyvaskylaID);
+        haeSaadata(`http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`, helsinkiID);
+    }
+    
   }, []);
 
 

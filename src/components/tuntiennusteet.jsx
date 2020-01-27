@@ -20,7 +20,7 @@ export function Tuntiennusteet(props)
   ];
 
   
-  let sademaara = [
+  let vesisade = [
     props.data.list[1].rain, 
     props.data.list[2].rain, 
     props.data.list[3].rain, 
@@ -28,17 +28,41 @@ export function Tuntiennusteet(props)
     props.data.list[5].rain
   ];
 
+  let lumisade = [
+    props.data.list[1].snow, 
+    props.data.list[2].snow, 
+    props.data.list[3].snow, 
+    props.data.list[4].snow, 
+    props.data.list[5].snow
+  ];
+
+  let sademaara = [0, 0, 0, 0, 0];
+
   for (let i = 0; i < 5; i++)
   {
     try {
-      if (sademaara[i]["3h"] > 0)
-        sademaara[i] = sademaara[i]["3h"];
-      else
-      sademaara[i] = "0";
+      if (vesisade[i]["3h"] > 0)
+      {
+        sademaara[i] = vesisade[i]["3h"];
+      }
+    }
+    catch {
+
+    }
+  }
+
+  for (let i = 0; i < 5; i++)
+  {
+    try {
+      if (lumisade[i]["3h"] > 0)
+      {
+        sademaara[i] = sademaara[i] + lumisade[i]["3h"];
+      }
+     
     }
     catch
     {
-      sademaara[i] = "0";
+
     }
   }
 
@@ -71,16 +95,16 @@ export function Tuntiennusteet(props)
   }
 
   const kortit = [
-      {"id" : "0", "kellonaika" : kellonaika[0], "saaikoni" : saaikoni[0], "lampotila" : lampotila[0], "tuuli" : tuuli[0], "kosteus" : kosteus[0], "sade" : sademaara[0]},
-      {"id" : "1", "kellonaika" : kellonaika[1], "saaikoni" : saaikoni[1], "lampotila" : lampotila[1], "tuuli" : tuuli[1], "kosteus" : kosteus[1], "sade" : sademaara[1]},
-      {"id" : "2", "kellonaika" : kellonaika[2], "saaikoni" : saaikoni[2], "lampotila" : lampotila[2], "tuuli" : tuuli[2], "kosteus" : kosteus[2], "sade" : sademaara[2]},
-      {"id" : "3", "kellonaika" : kellonaika[3], "saaikoni" : saaikoni[3], "lampotila" : lampotila[3], "tuuli" : tuuli[3], "kosteus" : kosteus[3], "sade" : sademaara[3]},
-      {"id" : "4", "kellonaika" : kellonaika[4], "saaikoni" : saaikoni[4], "lampotila" : lampotila[4], "tuuli" : tuuli[4], "kosteus" : kosteus[4], "sade" : sademaara[4]},
+      {"id" : "0", "kellonaika" : kellonaika[0], "saaikoni" : saaikoni[0], "lampotila" : lampotila[0], "tuuli" : tuuli[0], "kosteus" : kosteus[0], "sademaara" : sademaara[0]},
+      {"id" : "1", "kellonaika" : kellonaika[1], "saaikoni" : saaikoni[1], "lampotila" : lampotila[1], "tuuli" : tuuli[1], "kosteus" : kosteus[1], "sademaara" : sademaara[1]},
+      {"id" : "2", "kellonaika" : kellonaika[2], "saaikoni" : saaikoni[2], "lampotila" : lampotila[2], "tuuli" : tuuli[2], "kosteus" : kosteus[2], "sademaara" : sademaara[2]},
+      {"id" : "3", "kellonaika" : kellonaika[3], "saaikoni" : saaikoni[3], "lampotila" : lampotila[3], "tuuli" : tuuli[3], "kosteus" : kosteus[3], "sademaara" : sademaara[3]},
+      {"id" : "4", "kellonaika" : kellonaika[4], "saaikoni" : saaikoni[4], "lampotila" : lampotila[4], "tuuli" : tuuli[4], "kosteus" : kosteus[4], "sademaara" : sademaara[4]},
   ];
   
   const ennustekortit = kortit.map((kortti) => (
     <td key={"td" + kortti.id}>
-        <Tuntiennustekortti key={kortti.id} eka={(kortti.id) == 0 ? '1' : ''} vika={(kortti.id) == kortit.length-1 ? '1' : ''} kellonaika={kortti.kellonaika} saaikoni={kortti.saaikoni} lampotila={kortti.lampotila} tuuli={kortti.tuuli} kosteus={kortti.kosteus} sade={kortti.sade} />
+        <Tuntiennustekortti key={kortti.id} eka={(kortti.id) == 0 ? '1' : ''} vika={(kortti.id) == kortit.length-1 ? '1' : ''} kellonaika={kortti.kellonaika} saaikoni={kortti.saaikoni} lampotila={kortti.lampotila} tuuli={kortti.tuuli} kosteus={kortti.kosteus} sademaara={kortti.sademaara} />
     </td>
   ));
 
