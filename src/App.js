@@ -1,23 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {apikey} from './apikey';
+import {Kaupunkivalikko} from './components/kaupunkivalikko';
 import './tyylit.css';
 
 function App() {
 
   const [valittuKaupunki, asetaKaupunki] = useState(0);
   
-  const valikko = (
-    <div className="card">
-      <select className="kaupunkidropdown" value={valittuKaupunki} onChange={(e) => asetaKaupunki(e.target.value)}>
-        <option value="0">Kaikki kaupungit</option>
-        <option value="1">Helsinki</option>
-        <option value="2">Jyväskylä</option>
-        <option value="3">Kuopio</option>
-        <option value="4">Tampere</option>
-      </select>
-    </div>
-  )
+  const handleValikkoUpdate = (valinta) =>
+  {
+    // console.log(valinta);
+    asetaKaupunki(valinta);
+  }
 
+  
   let rakenne;
 
   if (valittuKaupunki == '0')
@@ -28,7 +24,7 @@ function App() {
       <div className="container container-xl">
         <div className="row">
           <div className="col-sm-12 col-xl-12">
-            {valikko}
+            <Kaupunkivalikko valittuKaupunki={valittuKaupunki} onValikkoUpdate={handleValikkoUpdate}/>
           </div>
         </div>
         <div className="row">
@@ -48,12 +44,12 @@ function App() {
         <div className="row">
           <div className="col-xl-2"></div>
           <div className="col-sm-12 col-xl-8">
-            {valikko}
+            <Kaupunkivalikko valittuKaupunki={valittuKaupunki} onValikkoUpdate={handleValikkoUpdate}/>
           </div>
           <div className="col-xl-2"></div>
         </div>
         <div className="row">
-          <KoostaSaatiedot valinta={valittuKaupunki} />
+          <KoostaSaatiedot valinta={valittuKaupunki} valittuKaupunki={valittuKaupunki}/>
         </div>
       </div>
     </div>
@@ -62,7 +58,6 @@ function App() {
 
   return rakenne;
 }
-
 
 function KoostaSaatiedot(props)
 {
