@@ -15,71 +15,46 @@ export function KoostaSaatiedot({valinta})
   const kuopioID = '650225';
   const helsinkiID = '658225';
 
-  useEffect(() => {
-    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${tampereID}&units=metric&appid=${apikey}`;
-    const url = `https://palikka.org/shitti/weather.php?id=${tampereID}`;
+  function haeSaadata(url, kaupunkiId)
+  {
+    // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kaupunkiId}&units=metric&appid=${apikey}`;
+    // const url = `https://palikka.org/shitti/weather2.php?id=${kaupunkiId}`;
     
     fetch(url)
       .then(res => res.json())
       .then(
         (result) => {
-          asetaDataTampere(result);
+            switch (kaupunkiId)
+            {
+                case tampereID:
+                asetaDataTampere(result);
+                break;
+
+                case jyvaskylaID:
+                asetaDataJyvaskyla(result);
+                break;
+
+                case kuopioID:
+                asetaDataKuopio(result);
+                break;
+
+                case helsinkiID:
+                asetaDataHelsinki(result);
+                break;
+            }
         },
         
         (error) => {
-          console.log("Virhe");
+          console.log("Virhe haettaessa säädataa");
         }
       )
-  }, []);
+  }
 
   useEffect(() => {
-     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${kuopioID}&units=metric&appid=${apikey}`;
-      const url = `https://palikka.org/shitti/weather.php?id=${kuopioID}`;
-    
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          asetaDataKuopio(result);
-        },
-        
-        (error) => {
-          console.log("Virhe");
-        }
-      )
-  }, []);
-
-  useEffect(() => {
-     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${jyvaskylaID}&units=metric&appid=${apikey}`;
-      const url = `https://palikka.org/shitti/weather.php?id=${jyvaskylaID}`;
-    
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          asetaDataJyvaskyla(result);
-        },
-        
-        (error) => {
-          console.log("Virhe");
-        }
-      )
-  }, []);
-
-  useEffect(() => {
-     // const url = `http://api.openweathermap.org/data/2.5/forecast?id=${helsinkiID}&units=metric&appid=${apikey}`;
-     const url = `https://palikka.org/shitti/weather.php?id=${helsinkiID}`;
-    
-    fetch(url)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          asetaDataHelsinki(result);
-        },
-        (error) => {
-          console.log("Virhe");
-        }
-      )
+    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${kuopioID}`, kuopioID);
+    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${tampereID}`, tampereID);
+    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${jyvaskylaID}`, jyvaskylaID);
+    haeSaadata(`https://palikka.org/shitti/weather2.php?id=${helsinkiID}`, helsinkiID);
   }, []);
 
 
