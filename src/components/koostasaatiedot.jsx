@@ -3,7 +3,7 @@ import {Tuntiennusteet} from './tuntiennusteet';
 import {SaaNyt} from './saanyt';
 import {apikey} from '../apikey';
 
-export function KoostaSaatiedot(props)
+export function KoostaSaatiedot({valinta})
 {
   const [saaDataTampere, asetaDataTampere] = useState(null);
   const [saaDataJyvaskyla, asetaDataJyvaskyla] = useState(null);
@@ -85,107 +85,79 @@ export function KoostaSaatiedot(props)
   }, []);
 
 
-  switch(props.valinta)
+  let saadata;
+
+  switch(valinta)
   {
     case '1':
-      if (saaDataHelsinki !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-xl-2"></div>
-            <div className="col-sm-12 col-xl-8">
-              <SaaNyt data={saaDataHelsinki} />
-              <Tuntiennusteet data={saaDataHelsinki} />
-            </div>
-            <div className="col-xl-2"></div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
+        saadata = saaDataHelsinki;
+        break;
 
     case '2':
-      if (saaDataJyvaskyla !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-xl-2"></div>
-            <div className="col-sm-12 col-xl-8">
-              <SaaNyt data={saaDataJyvaskyla} />
-              <Tuntiennusteet data={saaDataJyvaskyla} />
-            </div>
-            <div className="col-xl-2"></div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
-
-    case '4':
-      if (saaDataTampere !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-xl-2"></div>
-            <div className="col-sm-12 col-xl-8">
-              <SaaNyt data={saaDataTampere} />
-              <Tuntiennusteet data={saaDataTampere} />
-            </div>
-            <div className="col-xl-2"></div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
+        saadata = saaDataJyvaskyla;
+        break;
 
     case '3':
-      if (saaDataKuopio !== null)
-      {
-        naytto = (
-          <>
-            <div className="col-xl-2"></div>
-            <div className="col-sm-12 col-xl-8">
-              <SaaNyt data={saaDataKuopio} />
-              <Tuntiennusteet data={saaDataKuopio} />
-            </div>
-            <div className="col-xl-2"></div>
-          </>
-        );
-        return naytto;
-      }
-      else
-        return (<p>Loading</p>);
+        saadata = saaDataKuopio;
+        break;
 
+    case '4':
+        saadata = saaDataTampere;
+        break;
+    
     default:
 
-      if (saaDataHelsinki !== null && saaDataJyvaskyla !== null && saaDataKuopio !== null && saaDataTampere !== null)
+  }
+
+
+  if (valinta > 0)
+  {
+      if (saadata)
       {
-        naytto = (
-          <>
-            <div className="col-sm-12 col-xl-6 mb-2">
-              <SaaNyt data={saaDataHelsinki} />
-              <Tuntiennusteet data={saaDataHelsinki} />
-            </div>
-            <div className="col-sm-12 col-xl-6 mb-2">
-              <SaaNyt data={saaDataJyvaskyla} />
-              <Tuntiennusteet data={saaDataJyvaskyla} />
-            </div>
-            <div className="col-sm-12 col-xl-6 mb-2">
-              <SaaNyt data={saaDataKuopio} />
-              <Tuntiennusteet data={saaDataKuopio} />
-            </div>
-            <div className="col-sm-12 col-xl-6 mb-2">
-              <SaaNyt data={saaDataTampere} />
-              <Tuntiennusteet data={saaDataTampere} />
-            </div>
-          </>
-        );
-        return naytto;
+          return (
+            <>
+                <div className="col-xl-2"></div>
+                <div className="col-sm-12 col-xl-8">
+                <SaaNyt data={saadata} />
+                <Tuntiennusteet data={saadata} />
+                </div>
+                <div className="col-xl-2"></div>
+            </>
+          );
       }
       else
-        return (<p>Loading</p>);
+      {
+          return <h2>Loading data</h2>
+      }
+  }
+  else
+  {
+      if (saaDataHelsinki && saaDataJyvaskyla && saaDataTampere && saaDataKuopio)
+      {
+        return (
+            <>
+                <div className="col-sm-12 col-xl-6 mb-2">
+                <SaaNyt data={saaDataHelsinki} />
+                <Tuntiennusteet data={saaDataHelsinki} />
+                </div>
+                <div className="col-sm-12 col-xl-6 mb-2">
+                <SaaNyt data={saaDataJyvaskyla} />
+                <Tuntiennusteet data={saaDataJyvaskyla} />
+                </div>
+                <div className="col-sm-12 col-xl-6 mb-2">
+                <SaaNyt data={saaDataKuopio} />
+                <Tuntiennusteet data={saaDataKuopio} />
+                </div>
+                <div className="col-sm-12 col-xl-6 mb-2">
+                <SaaNyt data={saaDataTampere} />
+                <Tuntiennusteet data={saaDataTampere} />
+                </div>
+            </>
+          );
+      }
+      else
+      {
+          return <h2>Loading data</h2>
+      }
   }
 }
