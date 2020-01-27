@@ -9,4 +9,6 @@ const apikey = 'abcdefg123';
 export {apikey};
 ####
 
-- Suorita npm start
+- Varmista weather\src\components\koostasaatiedot.jsx -tiedostosta että 'debugMode = false;'
+- Mikäli debugMode on päällä, haetaan tiedot staattisesta testiapista, eikä siis openweathermapin apista.
+- Suorita 'npm start'
