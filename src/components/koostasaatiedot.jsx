@@ -9,6 +9,7 @@ export function KoostaSaatiedot({valinta})
   const [saaDataJyvaskyla, asetaDataJyvaskyla] = useState(null);
   const [saaDataKuopio, asetaDataKuopio] = useState(null);
   const [saaDataHelsinki, asetaDataHelsinki] = useState(null);
+  const [errorMsg, setError] = useState(null);
 
   // Kaupunkien ID:t apissa
   const tampereID = '634964';
@@ -27,19 +28,31 @@ export function KoostaSaatiedot({valinta})
             switch (kaupunkiId)
             {
                 case tampereID:
-                asetaDataTampere(result);
+                if (result.cod !== 401)
+                    asetaDataTampere(result);
+                else
+                    setError("Wrong apikey!");
                 break;
 
                 case jyvaskylaID:
-                asetaDataJyvaskyla(result);
+                if (result.cod !== 401)
+                    asetaDataJyvaskyla(result);
+                else
+                    setError("Wrong apikey!");
                 break;
 
                 case kuopioID:
-                asetaDataKuopio(result);
+                if (result.cod !== 401)
+                    asetaDataKuopio(result);
+                else
+                    setError("Wrong apikey!");
                 break;
 
                 case helsinkiID:
-                asetaDataHelsinki(result);
+                if (result.cod !== 401)
+                    asetaDataHelsinki(result);
+                else
+                    setError("Wrong apikey!");
                 break;
 
                 default:
@@ -49,7 +62,8 @@ export function KoostaSaatiedot({valinta})
         },
         
         (error) => {
-          console.log("Virhe haettaessa säädataa");
+          // console.log("Virhe haettaessa säädataa");
+          setError("Error while loading data!");
         }
       )
   }
@@ -115,7 +129,7 @@ export function KoostaSaatiedot({valinta})
       }
       else
       {
-          return naytaLatausviesti();
+          return naytaViesti();
       }
   }
   else  // Näytetään kaikkien kaupunkien sää.
@@ -144,20 +158,21 @@ export function KoostaSaatiedot({valinta})
       }
       else
       {
-        return naytaLatausviesti();
+        return naytaViesti();
       }
   }
+
+  function naytaViesti()
+    {
+        return (
+            <>
+                <div className="col-xl-2"></div>
+                <div className="col-sm-12 col-xl-8">
+                    <h2>{errorMsg}</h2>
+                </div>
+                <div className="col-xl-2"></div>
+                </>
+        );
+    }
 }
 
-function naytaLatausviesti()
-{
-    return (
-        <>
-            <div className="col-xl-2"></div>
-            <div className="col-sm-12 col-xl-8">
-                <h2>Loading data</h2>
-            </div>
-            <div className="col-xl-2"></div>
-            </>
-    );
-}
