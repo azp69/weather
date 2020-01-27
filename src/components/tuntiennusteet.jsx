@@ -1,4 +1,5 @@
 import React from 'react';
+import {Tuntiennustekortti} from './tuntiennustekortti';
 
 export function Tuntiennusteet(props)
 {
@@ -27,8 +28,6 @@ export function Tuntiennusteet(props)
     props.data.list[5].rain
   ];
 
-  
-  
   for (let i = 0; i < 5; i++)
   {
     try {
@@ -44,8 +43,6 @@ export function Tuntiennusteet(props)
     }
   }
   
-  // console.log(sademaara[1]);
-
   console.log(sademaara);
 
   const saaikoni = [
@@ -75,88 +72,29 @@ export function Tuntiennusteet(props)
     let minuutit = (d.getMinutes() < 10) ? `0${d.getMinutes()}` : d.getMinutes();
     kellonaika.push(`${tunnit}:${minuutit}`);
   }
+
+  const kortit = [
+      {"id" : "0", "kellonaika" : kellonaika[0], "saaikoni" : saaikoni[0], "lampotila" : lampotila[0], "tuuli" : tuuli[0], "kosteus" : kosteus[0], "sade" : sademaara[0]},
+      {"id" : "1", "kellonaika" : kellonaika[1], "saaikoni" : saaikoni[1], "lampotila" : lampotila[1], "tuuli" : tuuli[1], "kosteus" : kosteus[1], "sade" : sademaara[1]},
+      {"id" : "2", "kellonaika" : kellonaika[2], "saaikoni" : saaikoni[2], "lampotila" : lampotila[2], "tuuli" : tuuli[2], "kosteus" : kosteus[2], "sade" : sademaara[2]},
+      {"id" : "3", "kellonaika" : kellonaika[3], "saaikoni" : saaikoni[3], "lampotila" : lampotila[3], "tuuli" : tuuli[3], "kosteus" : kosteus[3], "sade" : sademaara[3]},
+      {"id" : "4", "kellonaika" : kellonaika[4], "saaikoni" : saaikoni[4], "lampotila" : lampotila[4], "tuuli" : tuuli[4], "kosteus" : kosteus[4], "sade" : sademaara[4]},
+  ];
   
-  
+  const ennustekortit = kortit.map((kortti) => (
+    <td key={"td" + kortti.id}>
+        <Tuntiennustekortti key={kortti.id} eka={(kortti.id) == 0 ? '1' : ''} vika={(kortti.id) == kortit.length-1 ? '1' : ''} kellonaika={kortti.kellonaika} saaikoni={kortti.saaikoni} lampotila={kortti.lampotila} tuuli={kortti.tuuli} kosteus={kortti.kosteus} sade={kortti.sade} />
+    </td>
+  ));
+
   return (
     <table className="w-100">
-      <tbody>
-        <tr>
-          <td>
-            <div className="card mr-1 px-0">
-              <div className="card-body mr-0 px-1 text-center">
-                <p className="tuntiotsikko text-center">{kellonaika[0]}</p>
-                <img src={saaikoni[0]} ></img>
-                <p className="lampotilaTuntiennuste text-center">{lampotila[0]}&deg;C</p>
-              </div>
-              <div className="footer saaennusteFooter text-center">
-                <p>{tuuli[0]}m/s</p>
-                <p>{kosteus[0]}%</p>
-                <p>{sademaara[0]}mm</p>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <div className="card mx-1 px-0">
-              <div className="card-body mr-0 px-1 text-center">
-                <p className="tuntiotsikko text-center">{kellonaika[1]}</p>
-                <img src={saaikoni[1]}></img>
-                <p className="lampotilaTuntiennuste text-center">{lampotila[1]}&deg;C</p>
-              </div>
-              <div className="footer saaennusteFooter text-center">
-                <p>{tuuli[1]}m/s</p>
-                <p>{kosteus[1]}%</p>
-                <p>{sademaara[1]}mm</p>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <div className="card mx-1 px-0">
-              <div className="card-body mr-0 px-1 text-center">
-                <p className="tuntiotsikko text-center">{kellonaika[2]}</p>
-                <img src={saaikoni[2]}></img>
-                <p className="lampotilaTuntiennuste text-center">{lampotila[2]}&deg;C</p>
-              </div>
-              <div className="footer saaennusteFooter text-center">
-                <p>{tuuli[2]}m/s</p>
-                <p>{kosteus[2]}%</p>
-                <p>{sademaara[2]}mm</p>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <div className="card mx-1 px-0">
-              <div className="card-body px-1 text-center">
-                <p className="tuntiotsikko text-center">{kellonaika[3]}</p>
-                <img src={saaikoni[3]}></img>
-                <p className="lampotilaTuntiennuste text-center">{lampotila[3]}&deg;C</p>
-              </div>
-              <div className="footer saaennusteFooter text-center">
-                <p>{tuuli[3]}m/s</p>
-                <p>{kosteus[3]}%</p>
-                <p>{sademaara[3]}mm</p>
-              </div>
-            </div>
-          </td>
-
-          <td>
-            <div className="card ml-1 px-0">
-              <div className="card-body mr-0 px-1 text-center">
-                <p className="tuntiotsikko text-center">{kellonaika[4]}</p>
-                <img src={saaikoni[4]}></img>
-                <p className="lampotilaTuntiennuste text-center">{lampotila[4]}&deg;C</p>
-              </div>
-              <div className="footer saaennusteFooter text-center">
-                <p>{tuuli[4]}m/s</p>
-                <p>{kosteus[4]}%</p>
-                <p>{sademaara[4]}mm</p>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+        <tbody>
+            <tr>
+                {ennustekortit}
+            </tr>
+        </tbody>
     </table>
-  )
+  );
+  
 }

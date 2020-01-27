@@ -106,6 +106,7 @@ export function KoostaSaatiedot({valinta})
         break;
     
     default:
+        break;
 
   }
 
@@ -132,28 +133,27 @@ export function KoostaSaatiedot({valinta})
   }
   else
   {
+      const saadata = [
+          { "id" : "1" , "data" : saaDataHelsinki},
+          { "id" : "2" , "data" : saaDataJyvaskyla},
+          { "id" : "3" , "data" : saaDataKuopio},
+          { "id" : "4" , "data" : saaDataTampere}
+        ];
+
       if (saaDataHelsinki && saaDataJyvaskyla && saaDataTampere && saaDataKuopio)
       {
+        const datat = saadata.map((d, index) => (
+            <div key={"div" + d.id} className="col-sm-12 col-xl-6 mb-2">
+                <SaaNyt key={"saaNyt" + d.id} data={d.data} />
+                <Tuntiennusteet key={d.id} data={d.data} />
+            </div>
+        ));
+
         return (
             <>
-                <div className="col-sm-12 col-xl-6 mb-2">
-                <SaaNyt data={saaDataHelsinki} />
-                <Tuntiennusteet data={saaDataHelsinki} />
-                </div>
-                <div className="col-sm-12 col-xl-6 mb-2">
-                <SaaNyt data={saaDataJyvaskyla} />
-                <Tuntiennusteet data={saaDataJyvaskyla} />
-                </div>
-                <div className="col-sm-12 col-xl-6 mb-2">
-                <SaaNyt data={saaDataKuopio} />
-                <Tuntiennusteet data={saaDataKuopio} />
-                </div>
-                <div className="col-sm-12 col-xl-6 mb-2">
-                <SaaNyt data={saaDataTampere} />
-                <Tuntiennusteet data={saaDataTampere} />
-                </div>
+                {datat}
             </>
-          );
+            );
       }
       else
       {
